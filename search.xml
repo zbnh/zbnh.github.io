@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Spring Boot菜鸟踩坑笔记(1)]]></title>
+    <url>%2F2018%2F11%2F14%2FBoot%E8%8F%9C%E9%B8%9F%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0-1%2F</url>
+    <content type="text"><![CDATA[报NullPointerException@Autowired注入失败Dao层代码: 12345678910111213141516171819202122import org.springframework.beans.factory.annotation.Autowired;import org.springframework.data.mongodb.core.MongoTemplate;import org.springframework.stereotype.Repository;import java.util.List;@Repository("userDao")public class UserDaoImpl implements UserDao &#123; @Autowired private MongoTemplate mongoTemplate; @Override public List&lt;User&gt; findAll() &#123; return mongoTemplate.findAll(User.class); &#125; @Override public void insert(User user) &#123; mongoTemplate.insert(user); &#125;&#125; test代码(错误示例): 123456789101112131415161718192021import org.junit.Test;import org.junit.runner.RunWith;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.boot.test.context.SpringBootTest;import org.springframework.test.context.junit4.SpringRunner;@RunWith(SpringRunner.class)@SpringBootTestpublic class InvoicemanagerApplicationTests &#123; @Test public void contextLoads() &#123; User user = new User(); user.setUserName("test"); user.setUserPassword("123"); UserDao userDao = new UserDaoImpl(); userDao.insert(user); System.out.println(userDao.findAll().get(0).getUserName()); &#125;&#125; 会发现报NullpointerException,原因是MongoTemplate为Null。因为MongoTemplate是由Spring Boot自动注入生成的实例，所以在使用时UserDao不应手动new实例，应该也用@Autowired使其注入生成实例。改正后: 12345678910111213141516171819202122import org.junit.Test;import org.junit.runner.RunWith;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.boot.test.context.SpringBootTest;import org.springframework.test.context.junit4.SpringRunner;@RunWith(SpringRunner.class)@SpringBootTestpublic class InvoicemanagerApplicationTests &#123; @Autowired UserDao userDao; @Test public void contextLoads() &#123; User user = new User(); user.setUserName("test"); user.setUserPassword("123"); userDao.insert(user); System.out.println(userDao.findAll().get(0).getUserName()); &#125;&#125;]]></content>
+      <categories>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Java基础知识总结]]></title>
+    <url>%2F2018%2F07%2F15%2FJava%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[语言基础变量的主要要素： 变量的类型 变量的名字 变量的值 注意：java是强类型语言，声明的类型必须跟值保持一致。 变量的三种声明方式： 先声明在赋值 int a; a = 10; 声明并赋值 int a = 10; 多个同类型变量赋值 int a,b,c = 10; 数据类型： 基本数据类型 整数类型 小数类型 布尔类型 字符类型 引用数据类型 字符串类型 数组类型 对象类型 八种数据类型： byte short int long float double char boolean 数据类型转换: 从小类型转换大类型可以编译通过 从大类型转换小类型不允许编译通过 分支和循环条件分支：123if(布尔表达式)&#123; //代码块&#125; if else 只要符合逻辑可以进行多重嵌套 switch分支123456switch(变量&lt;byte,short,int,char,String&gt;)&#123; case 条件1: 代码块1 case 条件2: 代码块2 case 条件3: 代码块3 default: 默认执行代码块&#125; break 本次条件判断结束 循环 while 循环的组成 初始部分 定义变量 布尔条件 循环体 迭代部分 berak 跳出循环体,后续的循环不在执行;continue 跳出本次循环，后续的循环还会在执行break 在哪个循环中使用则跳出哪个循环 函数 完成特定功能的一段代码块 定义在类的内部，并且与main函数并列 参数： 形参：指定义在函数括号内的参数 实参：指调用函数时传入的实际参数。 可变长参数： 定义语法： 变量类型…变量名 规范： 形参列表中只能允许有一个可变长参数，并且只能放在最后一个。 面向对象： 一切皆对象，万物皆对象 类是模板，只有给予了属性和方法才被称之为对象 类：定义了对象应具有的特征和行为，类是对象的模板 对象：拥有多个特征和行为的实体，对象是类的实例 实例变量不需要赋值可以直接使用，都有默认值123String null; int 0; double 0.0; 堆空间共享，栈空间独立 方法重载概念：方法名相同，参数列表不同 与返回值无关 好处：屏蔽用户的差异，灵活，方便 构造方法： 方法名字跟类名保持一致 构造方法不需要返回值 方法在new 创建对象时候被虚拟机调用 对象的创建过程 为对象创建堆空间并赋予一个初始值int 0 String null 为属性赋予默认值 调用构造方法并执行构造方法中的代码 如果类中没有写构造方法，编译器会默认的添加无参的构造方法，如果定义了有参构造方法，则无参构造需要手动添加。 对象的三大特性 封装 继承 多态 java 里边为单继承，一个类只能有一个直接父类; 方法覆盖（ovverride）1. 方法名相同 2. 返回值相同 3. 参数列表相同 4. 访问修饰符相同或者更宽 继承之后对象的构造过程： 分配空间 构造父类对象 初始化属性 调用构造方法 this() super() 都要求写在构造函数的第一行，所以this()和super()只能同时存在一个。 父类引用指向子类对象，叫做多态。在调用父类引用中方法时，真正执行的为实际类型中的方法。 多态可以运用在参数列表上，解决重载冗余多态可以用在返回值类型，解决返回值不一致的问题 ClassCastException 类型强转异常 instanceof 向下转型时 判断实际类型 发挥boolean 结果 父类引用指向子类对象，调用属性（成员变量）和 静态变量和静态方法 都是执行父类中的属性和方法如果调用普通方法或者说是普通函数调用其实是实际类型中的方法。 Java 的三个修饰符 static 可以修饰属性和方法 final 可以修饰类，方法，变量 abstract 局部变量属性 == 变量成员变量（实例变量） == 属性 static 修饰的方法不可以调用非静态方法,非静态方法可以调用静态方法，也可以调用非静态方法.static 修饰的方法不可以使用非静态成员属性，非静态方法可以使用非静态成员变量和静态成员变量。 类加载：在首次使用某个对象时把该对象的.class文件加载到虚拟机并保存的过程叫做类加载 类加载的时机： 创建对象时 创建子类对象时 使用静态属性时 使用静态方法时 Class.forName(“权限定名”); static 可以修饰代码块静态代码块在类加载的时候触发一次，动态代码块在每次创建对象时会被执行一次。 有个继承之后，创建子类对象。 先类加载父类 加载子类 创建父类对象 创建子类 final 修饰的类无法被继承final 修饰的方法无法被覆盖 接口： 概念：接口是一种能力，也是一种规范（标准） 接口：所有变量都是公开的静态常量，所有方法都是公开的抽象方法，如果不加修饰符，编译器默认会自动添加。 接口跟抽象类的区别： 相同点： 都能够声明引用，但都不能创建对象。 不同点： 抽象类中有构造方法，而接口中没有构造方法。 equals 比较两个对象是否是相同对象haseCode 返回对象的hash码值toString 返回该对象的引用地址 集合 存储对象或者说是存储数据的一个容器collection 接口 List: 有序(插入的顺序)有下标，可重复 Set: 无序无下标，不可重复 Map: 键值对存储的集合 ArrayList: 查询快，增删慢，轻量级，查询效率较高 Vector: 查询快，增删慢，重量级，查询效率低 LinkedList: 查询慢，增删快 泛型的表示符： T/E/V/K、 List 的实现类 ArrayList Vector LinkedList List 的常用api详情 泛型语法（了解）Collections 工具类 sort 排序 shuffel 随机重置 reverset 倒序 HastSet 如果存储自定义对象类型，要保证相同元素不被重复添加，需要手动的覆盖 hashCode 和 equals 方法: hashCode 方法的覆盖遵循尽量相同的元素返回相同的hashCode值,不相同的元素尽量要保证hashCode值不相同 LindkedHashSet 元素不能重复，但是保证了于元素的存入顺序。 TreeSet 可以对存储的数据进行排序，如果自定义对象类型需要实现Comparable接口自定义排序规则 Map 集合基于键值对存储 键无序无下标不可重复 值无序无下标可重复。 keySet() 返回map集合的所有键values() 返回map集合的所有值entrySet() 返回map集合集合中的所有键值对 （entry 键值对对象） HashMap 允许使用null 作为key和valueHahTable 不允许使用null 作为key和value 重量级properties 存储 string 类型的键值对，一般读取配置文件 TreeMap 可以对key进行排序，如果key存储的是自定义类型，自定义类型需要实现Coampareabler 接口定义排序规则 异常 超级父类 Throable Error 环境所导致的异常 处理态度 不处理 RuntimeException 运行时异常，未检查异常 可处理可不处理 Exception 非RuntimeException 非运行时异常，检查异常 必须处理 函数调用： main&gt;m1&gt;m2异常传递： m2&gt;m1&gt;main throw 手动的抛出异常语法： throw new 异常名字相当于return 关键字代表着程序的结束throw 代表的是一种动作 抛出异常 用在方法里边throws 代表的是一种声明 用在函数后边，代表声明抛出异常 处理异常的两种方式： 消极处理： throws 积极处理 try{}catch(Exception e){} IO流流的分类： 按照方向： 基于jvm 输入流 输出流 按照单位： 字节流 字符流 按照功能： 节点流 过滤流，包装流，功能流 IO中的常用对象 BufferdOutputStream 默认缓冲区的大小 8192 乱码产生的原因：任何编解码不一致都会导致乱码产生 DataOutputStream/DataInputStream 输出八种基本数据类型 ObjectOutputStream./ObjectInputStream 在八种基本数据类型的基础之上 增加缓冲和输出对象功能 FileReader/FileWriter 可以读写字符文本类型 BufferdReaer/PrintWriter 可以直接读取一行文档 readLine OutputStreamWriter/InputStreamReader 桥转换 桥转换时可以设置编码格式 线程线程的组成部分：CPU时间片数据： 堆空间：引用类型 堆空间数据共享 栈空间：基本类型数据,局部变量 栈空间独立 线程的逻辑代码继承Thread 类的方法创建线程，启动线程更方便，但是限制了线程类去继承其它类实现Runnable 接口的方法创建线程，启动线程较麻烦，但是大大提升了灵活性。 线程同步问题： 当两个线程同时访问临界资源，破坏原子操作时，会造成数据不一致。 临界资源,两个线程同时访问一个对象。 原子操作,两个不可分割的操作。 加锁方式1：123synchronized（对象）&#123;&#125; 加锁方式2：1public synchronized void add()&#123;&#125; 放在函数的修饰上 jdk 中两个线程安全的类 vector HashTable]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>基础</tag>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[中文NLP下的自动问答与会话总结]]></title>
+    <url>%2F2018%2F07%2F11%2F%E4%B8%AD%E6%96%87NLP%E4%B8%8B%E7%9A%84%E8%87%AA%E5%8A%A8%E9%97%AE%E7%AD%94%E4%B8%8E%E4%BC%9A%E8%AF%9D%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[作为人工智能的终极难题之一，一个完整的人机对话系统涉及到的技术极为广泛，例如计算机科学中的语音技术，自然语言处理，机器学习，规划与推理，知识工程，甚至语言学和认知科学中的许多理论在人机对话中都有所应用。笼统的讲，人机对话可以分为以下四个子问题：自然语言聊天、任务驱动的多轮对话、问答和推荐。 对最强大的计算机来说，理解人类语言并非易事——这便是自然语言理解的研究领域，所谓“自然语言理解”就是人与计算机可以进行有效沟通，计算机能理解用户的意图，执行命令或回答问题。 AI兴起的三大助推器 强大的计算能力和存储能力 高性能、分布式、云平台 智能问题需要高性能的计算+大容量的存储 大数据 规律（或知识）就在数据之中 网络化与数字化造就了大数据 评测的推动加强了数据的产生 以深度学习为代表的新方法新技术 面对多层神经网络的问题，深度学习有新的突破 数据+评测推动了技术发展 知识库问答的基本框架基本步骤 问句的语义解析：将问句转化为可查询的表示形式 查询知识库 推理得出答案 知识库相关的关键技术 实体链接 关系抽取 早期知识库问答的特点 小规模特定领域的知识库 实体关系数量少 问题模式受限 依赖于人工规则(不支持开放领域) QA任务什么是QA任务？ 侧重于一问一答，即直接根据用户的问题给出精准的答案。问答更接近一个信息检索的过程，虽然也可能涉及简单的上下文处理，但通常是通过指代消解和 query 补全来完成的。问答系统和任务驱动的多轮对话最根本的区别在于系统是否需要维护一个用户目标状态的表示和是否需要一个决策过程来完成任务。[1] 检索+推理 直接查找答案 FAQ 情景问答（查数据库如天气预报） 查知识库 查找+推理 多片段拼接 摘要式问题 过程式问题 其他 推理QA类型 基于无结构文档的QA 基于IR技术的QA（找文档） 基于IE技术的QA（找文档中的精准片段） 基于结构化数据的QA 基于数据库的QA（在数据库中找字段）问机票问天气查快递 基于知识库的DA（在知识库中找关系或推理产生答案） 混合式QA难点 内容 所涉及范围广 问句 需要解决语言理解的方面 语言知识基础 语言分析技术 语义的内部表示 答案 答案的信息（知识）来源（覆盖性） 答案信息的发现（搜索与选择） 答案的生成与组织（语言生成技术）技术挑战技术受制于知识／数据 结构化知识的不完善：基于规则的思想 实例化知识的数量不够大：基于学习的思想方法（模型）的受限 模型本身存在问题 DNN效果难完全重现、参数量大、不容易解释（黑盒） SVM高维导致严重的数据稀疏（泛化能力差） 模型的适应能力不强 从规范数据迁移到非规范数据 从日常领域迁移到专业领域 无指导学习的作用十分有限 会话会话的基本特点* ２个或２个以上的参与者 * 以互动形式平滑推动话题的演化发展 两种典型的会话闲聊式会话 不要求有固定目标 话轮多，可以漫无边际 机器不按规则出牌反而带来意想不到的体验垂直领域的服务型会话 有明确目标——解决问题 话轮少，尽快逼近问题的答案 答非所问将严重影响体验效果问答与服务型会话的区别问答：问题的直接回答问题（单轮）会话：问题的逐步回答（多轮，dialogue）服务型会话与问答的关联会话是对复杂问题的逐步解答过程：计算机理解问题需要多次询问用户是多个问答对的有序序列 答与问的关系 问与问的关系＋答与答的关系 计算机和用户具有问和答的角色转换关系服务型会话中的闲聊（混合式）自然轻松的方式]]></content>
+      <categories>
+        <category>NLP</category>
+      </categories>
+      <tags>
+        <tag>NLP</tag>
+        <tag>中文</tag>
+        <tag>自动问答</tag>
+        <tag>会话系统</tag>
+        <tag>AI</tag>
+        <tag>学术讲座总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[实现Hexo博客多终端更新]]></title>
+    <url>%2F2018%2F05%2F17%2F%E5%AE%9E%E7%8E%B0Hexo%E5%8D%9A%E5%AE%A2%E5%A4%9A%E7%BB%88%E7%AB%AF%E6%9B%B4%E6%96%B0%2F</url>
+    <content type="text"><![CDATA[搭建完hexo博客后遇到的一个问题就是多终端更新，我们经常需要在自己的电脑或单位的电脑上更新博客，这需要一些操作，巧妙地使用git和branch即可实现多终端更新。 原理利用git的分支（branch）管理功能，hexo博客源文件放在hexo分支上，编译出来的html文件放在master分支上，以此实现多终端更新和同步。 操作方法网上关于hexo多终端更新的文章很多，基本原理大体一致，可以参考简书上的这篇文章Hexo博客的跨设备同步。接下来说一下容易遇到的问题。 疑难问题 编译后页面空白 原因这是因为主题theme文件夹下缺失第三方主题文件造成的，如果使用了第三方主题，第三方主题的文件夹大多是git repository，hexo源文件根目录在git init时会忽略已有的repository。 解决方法从原来电脑上把主题文件手动复制过来或使用git submodule功能（详见Git 工具 - 子模块）。 报错Error: Host key verification failed.这是因为未配置SSH Key，关于配置SSH Public Key，详情参考这篇文章hexo git配置问题笔记]]></content>
+      <categories>
+        <category>hello world</category>
+      </categories>
+      <tags>
+        <tag>hello world</tag>
+        <tag>hexo</tag>
+        <tag>多终端更新</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hexo博客搭建的一些总结]]></title>
+    <url>%2F2017%2F06%2F15%2FHexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[关于Hexo博客的搭建,官网提供了完善的文档，网上也能找到很多资料，这里就不再赘述了。 配置GitHubSSH 在gitbash中，配置github账户信息（YourName和YourEail都替换成自己的） 在gitbash中输入：ssh-keygen -t rsa -C &quot;youremail@example.com，生成ssh。然后找到id_rsa.pub文件的内容 将获取的ssh放到github中，添加一个New SSH key，title随便取，key就填刚刚那一段。在gitbash中验证是否添加成功：ssh -T git@github.com 常用hexo命令新建文章：hexo new &quot;Title&quot;生成博客：hexo g发布博客：hexo d]]></content>
+      <categories>
+        <category>hello world</category>
+      </categories>
+      <tags>
+        <tag>hello world</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F06%2F15%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>hello world</category>
+      </categories>
+      <tags>
+        <tag>hello world</tag>
+      </tags>
+  </entry>
+</search>
