@@ -1,0 +1,1291 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1.1 Linux是什么Linux就是一个操作系统，计算机主机由一堆硬件所组成，为了有效地控制这些硬件资源，于是乎就有操作系统的产生。操作系统除了有效地控制这些硬件资源的分配，并提供计算机运行所需要的功能（如网络功能）之外，为了要提供程序员更容易开发软件的环境，所以操作系统也会提供一整组系统调用接口来给程序员开发用。内核与硬件的关系非常紧密，早期的Linux是针对386的计算机来开发的，由于Lin">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux基础知识总结(一)">
+<meta property="og:url" content="http://yoursite.com/2019/08/23/Linux基础知识总结-一/index.html">
+<meta property="og:site_name" content="zbnh&#39;s Blog">
+<meta property="og:description" content="1.1 Linux是什么Linux就是一个操作系统，计算机主机由一堆硬件所组成，为了有效地控制这些硬件资源，于是乎就有操作系统的产生。操作系统除了有效地控制这些硬件资源的分配，并提供计算机运行所需要的功能（如网络功能）之外，为了要提供程序员更容易开发软件的环境，所以操作系统也会提供一整组系统调用接口来给程序员开发用。内核与硬件的关系非常紧密，早期的Linux是针对386的计算机来开发的，由于Lin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-21T07:38:26.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux基础知识总结(一)">
+<meta name="twitter:description" content="1.1 Linux是什么Linux就是一个操作系统，计算机主机由一堆硬件所组成，为了有效地控制这些硬件资源，于是乎就有操作系统的产生。操作系统除了有效地控制这些硬件资源的分配，并提供计算机运行所需要的功能（如网络功能）之外，为了要提供程序员更容易开发软件的环境，所以操作系统也会提供一整组系统调用接口来给程序员开发用。内核与硬件的关系非常紧密，早期的Linux是针对386的计算机来开发的，由于Lin">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/23/Linux基础知识总结-一/"/>
+
+
+
+
+
+  <title>Linux基础知识总结(一) | zbnh's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zbnh's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">占位</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/Linux基础知识总结-一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zbnh">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zbnh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux基础知识总结(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-23T14:59:05+08:00">
+                2019-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-1-Linux是什么"><a href="#1-1-Linux是什么" class="headerlink" title="1.1 Linux是什么"></a>1.1 Linux是什么</h2><p>Linux就是一个操作系统，计算机主机由一堆硬件所组成，为了有效地<strong>控制这些硬件资源</strong>，于是乎就有操作系统的产生。操作系统除了有效地控制这些硬件资源的分配，并提供计算机运行所需要的功能（如网络功能）之外，为了要提供程序员更容易开发软件的环境，所以操作系统也会提供一整组系统调用接口来给程序员开发用。<br>内核与硬件的关系非常紧密，早期的Linux是针对386的计算机来开发的，由于Linux只是一个操作系统，并不含有其他的应用程序，因此工程师在下载了Linux之后，只是使计算机Ready，接下来高级工程师再根据自己的需求，在Linux上安装其所需要的软件<br><a id="more"></a></p>
+<h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><p>如果能够将<strong>所有硬件驱动</strong>，并且<strong>提供一个软件的参考接口</strong>来给工程师进行开发，开发软件的工作就会变得简单，这就是操作系统。</p>
+<h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>操作系统（Operating System，OS）其实<strong>也是一组程序</strong>，这组程序的重点在于管理电脑的所有活动及驱动系统中的所有硬件。</p>
+<h4 id="内核功能"><a href="#内核功能" class="headerlink" title="内核功能"></a>内核功能</h4><ul>
+<li>系统调用接口</li>
+<li>进程管理</li>
+<li>内存管理</li>
+<li>文件系统管理</li>
+<li><p>设备驱动</p>
+</li>
+<li><p>几个关键概念</p>
+<ul>
+<li>操作系统的<strong>内核层直接参考硬件规格写成</strong>，所以<strong>同一个操作系统程序不能够在不一样的  件架构下运行</strong>。</li>
+<li><strong>操作系统</strong>只是管理整个硬件资源，包括CPU、内存、输入输出设备及文件系统等。即<strong>仅  电脑Ready</strong>，真正实现功能的是应用程序软件。</li>
+<li><strong>应用程序的开发都是参考操作系统提供的API</strong>，所以该应用程序只能在该操作系统上面运  而已，不可以在其他操作系统上运行。</li>
+</ul>
+</li>
+<li>其它操作系统<ul>
+<li>Windows</li>
+<li>Mac OS</li>
+</ul>
+</li>
+</ul>
+<h2 id="Linux应用"><a href="#Linux应用" class="headerlink" title="Linux应用"></a>Linux应用</h2><ul>
+<li>企业应用<ul>
+<li>网络服务器</li>
+<li>关键任务的应用</li>
+<li>学术机构的高性能计算</li>
+</ul>
+</li>
+<li>个人应用<ul>
+<li>桌面计算机</li>
+<li>手持系统(PDA、手机)</li>
+<li>嵌入式系统</li>
+</ul>
+</li>
+<li>云端应用<ul>
+<li>云程序</li>
+<li>终端设备</li>
+</ul>
+</li>
+</ul>
+<h2 id="如何学习Linux"><a href="#如何学习Linux" class="headerlink" title="如何学习Linux"></a>如何学习Linux</h2><ul>
+<li>选择一本好书《鸟哥的Linux私房菜》</li>
+<li>计算机概论与硬件相关知识</li>
+<li>Linux的安装与命令</li>
+<li>Linux操作系统的基础技能（用户、用户组、权限、程序）</li>
+<li>Vi文本编辑器</li>
+<li>Shell与Shell脚本</li>
+<li>软件管理（Tarball、RPM、DPKG、YUM、APT）</li>
+<li>网络基础的建立（IP、路由）</li>
+<li>网站搭建</li>
+</ul>
+<h2 id="Vmware-CentOS安装"><a href="#Vmware-CentOS安装" class="headerlink" title="Vmware CentOS安装"></a>Vmware CentOS安装</h2><p>略……</p>
+<h2 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h2><p><strong>Linux是多人多任务系统不同于Windows的单人多任务系统</strong><br><strong>Linux的高度稳定性支持长时间运行</strong></p>
+<ul>
+<li>Linux默认提供六个终端供用户登录</li>
+<li>终端切换快捷键为Ctrl+Alt+F1~F6</li>
+<li>在终端鼠标退出虚拟机快捷键为Ctrl+Alt</li>
+<li>终端用户输入startx命令启动图形界面（图形界面其实就是命令行界面+X Window软件）</li>
+<li>电源设置</li>
+</ul>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li>格式：[用户名@主机名 当前路径]$command [-options] parameter1 parameter2 …</li>
+<li>注意<ol>
+<li>一行指令中第一个输入的部分绝对是『命令(command)』或『可执行文件(例如Shell脚本)』</li>
+<li>command 为命令的名称，例如变换工作目录的命令为 cd 等等；</li>
+<li>中刮号[]并不存在于实际的指令中，而加入选项设定时，通常选项前会带 - 号，例如 -h；有时候会使用选项的完整全名，则选项前带有 – 符号，例如 –help；</li>
+<li>parameter1 parameter2.. 为依附在选项后面的参数，或者是 command 的参数；</li>
+<li>命令, 选项, 参数等这几个东西中间以空格来区分，不论空几格 shell 都视为一格；</li>
+<li>按下[Enter]按键后，该指令就立即执行。[Enter]按键代表著一行指令的开始启动。</li>
+<li>指令太长的时候，可以使用反斜线 () 来跳脱[Enter]符号，使指令连续到下一行。（8）在 Linux 系统中，英文大小写字母是不一样的。举例来说， cd 与 CD 并不同。</li>
+</ol>
+</li>
+<li><code>ls</code> 列出当前目录文件<ul>
+<li><code>-a</code> 列出全部文件(包括隐藏和系统保留文件)</li>
+<li><code>-l</code> 列出详细信息(蓝色代表目录)</li>
+<li><code>-i</code> 列出inode号码</li>
+<li><code>--full-time</code> 显示详细时间<ul>
+<li><code>--color=never</code> 不显示颜色</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>date</code> 当前日期(区分大小写)<ul>
+<li><code>+%Y/%m/%d</code> 格式化输出</li>
+</ul>
+</li>
+<li><code>cal</code> (calendar) 显示日历</li>
+<li><code>bc</code> 计算器</li>
+<li>快捷键<ul>
+<li>tab 补全功能(命令和文件)</li>
+<li>ctrl + c 中断运行</li>
+<li>ctrl + d 退出程序</li>
+<li>shift + pageup/pagedown 上下翻页</li>
+</ul>
+</li>
+<li><code>--help</code> 帮助</li>
+<li><code>man</code> 使用手册</li>
+<li><code>who</code> 查看使用</li>
+<li><code>netstat</code> 查看网络状态</li>
+<li><code>ps -aux</code> 查看后台执行程序</li>
+<li><code>stat</code> 查看文件源信息</li>
+<li><code>touch</code> 新建文件</li>
+<li><code>ln</code> 创建硬链接<ul>
+<li><code>-s</code> 创建软连接</li>
+</ul>
+</li>
+<li><code>clear</code> 清屏</li>
+</ul>
+<h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><h3 id="用户与用户组"><a href="#用户与用户组" class="headerlink" title="用户与用户组"></a>用户与用户组</h3><blockquote>
+<p>Linux一般将文件可读写的身份分为三个类别，分别是 owner/group/others，且三种身份各有 read/write/execute 等权限。</p>
+</blockquote>
+<ul>
+<li>用户</li>
+<li>用户组</li>
+</ul>
+<h3 id="Linux文件属性"><a href="#Linux文件属性" class="headerlink" title="Linux文件属性"></a>Linux文件属性</h3><p>文件类型 文件拥有者权限 用户组权限 其他人权限 链接数 文件拥有者 用户组名 文件大小 修改时间 文件名<br>i-node：文件存储在硬盘上，硬盘的最小存储单位叫做“扇区”（Sector）。每个扇区储存512字节（相当于0.5KB）。<br>操作系统读取硬盘的时候，不会一个个扇区的读取，这样效率太低，而是一次性连续读取多个扇区，即一次性读取一个“块”（block）。这种由多个扇区组成的“块”，是文件存取的最小单位。“块”的大小，最常见的是4KB，即连续八个sector组成一个block。<br>文件数据都储存在“块”中，那么很显然，我们还必须找到一个地方储存文件的“元信息”，比如文件的创建者、文件的创建日期、文件的大小等等。这种储存文件元信息的区域就叫做inode，中文译名为”索引节点“。</p>
+<p>i-node内容：</p>
+<ul>
+<li>Size 文件的字节数</li>
+<li>Uid 文件拥有者的User ID</li>
+<li>Gid 文件的Group ID</li>
+<li>Access 文件的读、写、执行权限</li>
+<li>文件的时间戳，共有三个:</li>
+<li>Change 指inode上一次变动的时间</li>
+<li>Modify 指文件内容上一次变动的时间</li>
+<li>Access 指文件上一次打开的时间</li>
+<li>Links 链接数，即有多少文件名指向这个inode</li>
+<li>Inode 文件数据block的位置</li>
+<li>Blocks 块数</li>
+<li>IO Blocks 块大小</li>
+<li>Device 设备号码</li>
+</ul>
+<p>使用命令 <code>stat 文件名</code>查看</p>
+<h4 id="硬链接"><a href="#硬链接" class="headerlink" title="硬链接"></a>硬链接</h4><p>一般情况下，文件名和inode号码是”一一对应”关系，每个inode号码对应一个文件名。但是，Unix/Linux系统允许，多个文件名指向同一个inode号码。<br>使用命令<code>ln</code>创建硬链接：<code>ln 源文件 目标文件</code></p>
+<h4 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h4><p>文件A和文件B的inode号码虽然不一样，但是文件A的内容是文件B的路径。读取文件A时，系统会自动将访问者导向文件B。因此，无论打开哪一个文件，最终读取的都是文件B。这时，文件A就称为文件B的”软链接”（soft link）或者”符号链接（symbolic link）。<br>这是软链接与硬链接最大的不同：文件A指向文件B的文件名，而不是文件B的inode号码，文件B的inode”链接数”不会因此发生变化。<br>使用命令<code>ln -s</code>创建硬链接：<code>ln -s 源文件 目标文件</code><br><strong><em>对于目录文件，x权限代表可进入目录，r权限只是可浏览</em></strong></p>
+<h3 id="如何修改Linux文件属性与权限"><a href="#如何修改Linux文件属性与权限" class="headerlink" title="如何修改Linux文件属性与权限"></a>如何修改Linux文件属性与权限</h3><ul>
+<li><code>chgrp</code> 改变文件用户组<ul>
+<li><code>chgrp [-R] dirname filename ...</code></li>
+</ul>
+</li>
+<li><code>chown</code> 改变文件拥有者<ul>
+<li><code>chown [-R] 帐号名称 文件或目录</code></li>
+<li><code>chown [-R] 帐号名称:用户组组名称 文件或目录</code> 选项与参数： -R : 进行递归(recursive)的持续变更，亦即连同次目录下的所有文件都变更</li>
+</ul>
+</li>
+<li><code>chmod</code> 改变文件权限<ul>
+<li>权限分数对照: x:1,w:2,r:4</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/18/程序设计语言与软件的可信性问题总结/" rel="next" title="程序设计语言与软件的可信性问题总结">
+                <i class="fa fa-chevron-left"></i> 程序设计语言与软件的可信性问题总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/25/Linux基础知识总结-二/" rel="prev" title="Linux基础知识总结(二)">
+                Linux基础知识总结(二) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="zbnh" />
+          <p class="site-author-name" itemprop="name">zbnh</p>
+           
+              <p class="site-description motion-element" itemprop="description">占位</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zbnh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Linux是什么"><span class="nav-number">1.</span> <span class="nav-text">1.1 Linux是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统"><span class="nav-number">1.1.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核"><span class="nav-number">1.2.</span> <span class="nav-text">内核</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内核功能"><span class="nav-number">1.2.1.</span> <span class="nav-text">内核功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux应用"><span class="nav-number">2.</span> <span class="nav-text">Linux应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何学习Linux"><span class="nav-number">3.</span> <span class="nav-text">如何学习Linux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vmware-CentOS安装"><span class="nav-number">4.</span> <span class="nav-text">Vmware CentOS安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS"><span class="nav-number">5.</span> <span class="nav-text">CentOS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">5.1.</span> <span class="nav-text">命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件权限"><span class="nav-number">6.</span> <span class="nav-text">文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户与用户组"><span class="nav-number">6.1.</span> <span class="nav-text">用户与用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux文件属性"><span class="nav-number">6.2.</span> <span class="nav-text">Linux文件属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬链接"><span class="nav-number">6.2.1.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软链接"><span class="nav-number">6.2.2.</span> <span class="nav-text">软链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何修改Linux文件属性与权限"><span class="nav-number">6.3.</span> <span class="nav-text">如何修改Linux文件属性与权限</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        <span class="powered-by" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zbnh</span>
+  
+</span>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
