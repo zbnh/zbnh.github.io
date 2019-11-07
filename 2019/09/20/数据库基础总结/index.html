@@ -1,0 +1,1338 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据库,关系模型,MySQL,MongoDB," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="数据库基础知识数据库概述 数据库是研究数据管理的技术。即如何妥善地保存和科学地管理数据。 数据管理是指对数据进行分类、组织、编码、存储、检索 和维护等操作 数据管理技术好坏评判的标准： 数据冗余 数据共享 数据独立性 数据统一集中管理   数据库(DB-DataBase)： 按一定结构组织存储的、集成的、可共享的数据的集合。   数据库有两种类型——关系型数据库与非关系型数据库。 关系型数据库：存">
+<meta name="keywords" content="数据库,关系模型,MySQL,MongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库基础总结">
+<meta property="og:url" content="http://yoursite.com/2019/09/20/数据库基础总结/index.html">
+<meta property="og:site_name" content="zbnh&#39;s Blog">
+<meta property="og:description" content="数据库基础知识数据库概述 数据库是研究数据管理的技术。即如何妥善地保存和科学地管理数据。 数据管理是指对数据进行分类、组织、编码、存储、检索 和维护等操作 数据管理技术好坏评判的标准： 数据冗余 数据共享 数据独立性 数据统一集中管理   数据库(DB-DataBase)： 按一定结构组织存储的、集成的、可共享的数据的集合。   数据库有两种类型——关系型数据库与非关系型数据库。 关系型数据库：存">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-07T01:59:38.026Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库基础总结">
+<meta name="twitter:description" content="数据库基础知识数据库概述 数据库是研究数据管理的技术。即如何妥善地保存和科学地管理数据。 数据管理是指对数据进行分类、组织、编码、存储、检索 和维护等操作 数据管理技术好坏评判的标准： 数据冗余 数据共享 数据独立性 数据统一集中管理   数据库(DB-DataBase)： 按一定结构组织存储的、集成的、可共享的数据的集合。   数据库有两种类型——关系型数据库与非关系型数据库。 关系型数据库：存">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/20/数据库基础总结/"/>
+
+
+
+
+
+  <title>数据库基础总结 | zbnh's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zbnh's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">广告位招租😜</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/20/数据库基础总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zbnh">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zbnh's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库基础总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T19:28:54+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Database/" itemprop="url" rel="index">
+                    <span itemprop="name">Database</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="数据库基础知识"><a href="#数据库基础知识" class="headerlink" title="数据库基础知识"></a>数据库基础知识</h2><h3 id="数据库概述"><a href="#数据库概述" class="headerlink" title="数据库概述"></a>数据库概述</h3><ul>
+<li>数据库是研究数据管理的技术。即如何妥善地保存和科学地管理数据。</li>
+<li>数据管理是指对数据进行分类、组织、编码、存储、检索 和维护等操作</li>
+<li>数据管理技术好坏评判的标准：<ol>
+<li>数据冗余</li>
+<li>数据共享</li>
+<li>数据独立性</li>
+<li>数据统一集中管理</li>
+</ol>
+</li>
+<li>数据库(DB-DataBase)：<ul>
+<li><strong><code>按一定结构组织存储的、集成的、可共享的数据的集合。</code></strong></li>
+</ul>
+</li>
+<li>数据库有两种类型——<strong>关系型数据库</strong>与<strong>非关系型数据库</strong>。</li>
+<li>关系型数据库：存储格式能直观地反映实体间的关系，和常见的表格比较相似，表与表之间是有复杂的关联关系。<ul>
+<li>Oracle、MySQL、DB2、Microsoft SQL Server、Microsoft Access等</li>
+</ul>
+</li>
+<li>非关系型数据库：指的是分布式的、非关系型的、不保证遵循ACID原则的数据存储系统。  </li>
+</ul>
+<a id="more"></a>
+<h3 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h3><ul>
+<li>关系数据库是一个结构化的数据集合，这个结构要使用<strong>数据模型</strong>来描述现实世界中事物间的联系。</li>
+<li><strong>数据模型——是表示数据及其联系的模型。</strong></li>
+<li>数据模型分类（按模型应用的不同目的划分）<ul>
+<li>概念模型（也称语义模型）<ul>
+<li>常用E-R模型</li>
+</ul>
+</li>
+<li>结构数据模型（简称数据模型）<ul>
+<li>层次模型</li>
+<li>网状模型</li>
+<li><strong>关系模型</strong>等  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="E-R模型"><a href="#E-R模型" class="headerlink" title="E-R模型"></a>E-R模型</h3><h3 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h3><ol>
+<li><p>数据结构</p>
+<ul>
+<li>关系</li>
+<li>元组</li>
+<li>属性</li>
+<li>元数（度、目）</li>
+<li>关系模式：关系结构的描述。</li>
+<li>R(A1 ，A2，A3，….，An)</li>
+</ul>
+</li>
+<li><p>操纵与完整性约束</p>
+<ul>
+<li>数据操纵：<ul>
+<li>查</li>
+<li>插</li>
+<li>删</li>
+<li>改</li>
+</ul>
+</li>
+<li>需满足关系的完整性约束条件<ul>
+<li>实体完整性约束</li>
+<li>参照完整性约束</li>
+<li>用户自定义的完整性约束  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>关系型数据库中的一条记录中有若干个属性，若其中某一个属性（组）能唯一标识一条记录，该属性（组）就可以成为一个主键  </p>
+<p>完整性约束</p>
+<ul>
+<li>列级完整性约束条件</li>
+<li>实体完整性约束条件</li>
+<li>用户自定义完整性约束条件</li>
+<li>参照完整性约束</li>
+</ul>
+<h3 id="关系数据库语言SQL"><a href="#关系数据库语言SQL" class="headerlink" title="关系数据库语言SQL"></a>关系数据库语言SQL</h3><ul>
+<li><strong>SQL</strong>—Structured Query Language（结构化查询语言）， 是通用的，功能极强的关系DB语言。</li>
+<li>SQL的数据定义<ul>
+<li>create database …</li>
+<li>create table …</li>
+</ul>
+</li>
+<li>SQL的增删改查<ul>
+<li>SELECT，INSERT，UPDATE，DROP/DELETE</li>
+</ul>
+</li>
+</ul>
+<p>例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student ( sno <span class="built_in">CHAR</span> (<span class="number">5</span>), sname <span class="built_in">CHAR</span> (<span class="number">8</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, sex <span class="built_in">CHAR</span> (<span class="number">2</span>), age <span class="built_in">SMALLINT</span>, dept <span class="built_in">CHAR</span> (<span class="number">20</span>), PRIMARY <span class="keyword">KEY</span>(sno), <span class="keyword">CHECK</span> sex <span class="keyword">IN</span> (‘男’,‘女’)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Course ( cno <span class="built_in">CHAR</span> (<span class="number">4</span>), cname <span class="built_in">CHAR</span> (<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, pcno <span class="built_in">CHAR</span> (<span class="number">4</span>), credit <span class="built_in">SMALLINT</span>, PRIMARY <span class="keyword">KEY</span> (cno), FOREIGN <span class="keyword">KEY</span> (pcno) <span class="keyword">REFERENCES</span> Course(cno)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> Student;</span><br></pre></td></tr></table></figure>
+<h3 id="非关系型数据库"><a href="#非关系型数据库" class="headerlink" title="非关系型数据库"></a>非关系型数据库</h3><ul>
+<li>非关系型数据库，又被称为NoSQL（Not Only SQL )，意为不仅仅是SQL</li>
+<li>NoSQL数据库的特点：<ul>
+<li>模式自由<ul>
+<li>不需要定义表结构，数据表中的每条记录都可能有不同的属性和格式。</li>
+</ul>
+</li>
+<li>逆规范化<ul>
+<li>不遵循范式<a href="[数据库范式](https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/7309898?fr=aladdin)">^1</a>要求，去掉完整性约束，减少表之间的依赖</li>
+</ul>
+</li>
+<li>弹性可扩展<ul>
+<li>可在系统运行的过程中，动态的删除和增加节点。</li>
+</ul>
+</li>
+<li>多副本异步复制<ul>
+<li>数据快速写入一个节点，其余节点通过读取写入的日志来实现异步复制。</li>
+</ul>
+</li>
+<li>弱事务<ul>
+<li>不能完全满足事务的ACID特性，但是可以保证事务的最终一致性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="MySQL安装与实操"><a href="#MySQL安装与实操" class="headerlink" title="MySQL安装与实操"></a>MySQL安装与实操</h2><h3 id="MySQL基础"><a href="#MySQL基础" class="headerlink" title="MySQL基础"></a>MySQL基础</h3><ul>
+<li>标识符和关键字<ul>
+<li>标识符用来命名一些对象，如数据库、表、列、变量等，以便在脚本中的其他地方引用。MySQL标识符命名规则稍微优点繁琐，其通用命名规则是：标识符由以字母或下划线(_)开头的 字母、数字或下 划线序列组成。</li>
+<li>对于标识符是否区分大小写取决于操作系统，Windows下是不敏感的，但对于大多数linux/Unix系统，这些标识符大小写是敏感的。</li>
+<li>关键字。MySQL的关键字众多，不同版本的MySQL语言关键字也略 有变化。所有关键字有自己特定的含义，应尽量避免作为标识符</li>
+</ul>
+</li>
+</ul>
+<h3 id="MySQL数据库基本操作"><a href="#MySQL数据库基本操作" class="headerlink" title="MySQL数据库基本操作"></a>MySQL数据库基本操作</h3><ul>
+<li><code>show databases</code>语句查看MySQL服务器中的所有数据库</li>
+<li><code>create database</code>创建数据库</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> &#123;<span class="keyword">database</span>|<span class="keyword">schema</span>&#125;[<span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span>] databasename [<span class="keyword">default</span>]<span class="built_in">character</span> <span class="keyword">set</span> charset_name |[<span class="keyword">default</span>]<span class="keyword">collate</span> collation_name;</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">MySQL自带数据库介绍</span><br><span class="line"></span><br><span class="line">数据库名称|数据库作用</span><br><span class="line">:<span class="comment">-----:|:--------:</span></span><br><span class="line">mysql |描述用户访问权限</span><br><span class="line">information_schema |保存关于MySQL服务器所维护的所有其他数据库的信息。 如数据库名、数据库的表、表栏的数据类型与访问权限 等</span><br><span class="line">Performance_schema |主要用于收集数据库服务器性能参数</span><br><span class="line">Sakila|MySQL官方测试用的数据库</span><br><span class="line">Sys |Sys数据库里面包含了一系列的存储过程、自定义函数一 级视图，存储了许多系统的元数据信息</span><br><span class="line">world|存储当前世界上的主要城市、国家和语言信息  </span><br><span class="line"></span><br><span class="line">### 数据库表创建</span><br><span class="line"></span><br><span class="line">* 创建表</span><br><span class="line"></span><br><span class="line">```sql</span><br><span class="line"><span class="keyword">create</span> [<span class="keyword">temporary</span>] <span class="keyword">table</span> [<span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span>] table_name [([column_definition], …|[index_definition])] [table_option][select_statement];</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">### 修改数据库表</span><br><span class="line"></span><br><span class="line">修改数据库表语法：</span><br><span class="line"></span><br><span class="line">```sql</span><br><span class="line"><span class="keyword">alter</span> [<span class="keyword">ignore</span>] <span class="keyword">table</span> tbl_name</span><br><span class="line">alter_specification [, alter_specification] …</span><br><span class="line">alter_specification:</span><br><span class="line"><span class="keyword">add</span> [<span class="keyword">column</span>] column_definition [<span class="keyword">first</span> | <span class="keyword">after</span> col_name] //添加字段</span><br><span class="line">|<span class="keyword">alter</span> [<span class="keyword">column</span>]col_name&#123;<span class="keyword">set</span> <span class="keyword">default</span> literal | <span class="keyword">drop</span> <span class="keyword">default</span>&#125;//修改字段默认值</span><br><span class="line">|<span class="keyword">change</span> [<span class="keyword">column</span>] old_col_name column_definition//重命名字段</span><br><span class="line">[<span class="keyword">first</span> | <span class="keyword">after</span> col_name]</span><br><span class="line">|<span class="keyword">modify</span> [<span class="keyword">column</span>] column_definition [<span class="keyword">first</span> | <span class="keyword">after</span> col_name]//修改字段数据类型</span><br><span class="line">|<span class="keyword">drop</span> [<span class="keyword">column</span>] col_name //删除列</span><br><span class="line">|<span class="keyword">rename</span> [<span class="keyword">TO</span>] new_tble_name //对表重命名</span><br><span class="line">|<span class="keyword">order</span> <span class="keyword">by</span> col_name//按字段排序</span><br><span class="line">|<span class="keyword">convert</span> <span class="keyword">TO</span> <span class="built_in">character</span> <span class="keyword">set</span> charset_name[<span class="keyword">collate</span> collation_name] //将字符集转换为二进制</span><br><span class="line">|[<span class="keyword">default</span>] <span class="built_in">character</span> <span class="keyword">set</span> charset_name [<span class="keyword">collate</span> collation_name] //修改表的默认字符集</span><br></pre></td></tr></table></figure>
+<h3 id="表记录操作"><a href="#表记录操作" class="headerlink" title="表记录操作"></a>表记录操作</h3><ul>
+<li><p>插入</p>
+</li>
+<li><p>更新</p>
+</li>
+<li><p>删除<br><code>delete from table where</code></p>
+</li>
+</ul>
+<h3 id="表查询"><a href="#表查询" class="headerlink" title="表查询"></a>表查询</h3><p><code>select * from table</code><br>详细语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> [all | <span class="keyword">distinct</span>] selection_list <span class="keyword">from</span> table_source [<span class="keyword">where</span> search_condition] [<span class="keyword">group</span> <span class="keyword">by</span> grouping_columns] [<span class="keyword">with</span> <span class="keyword">rollup</span>] [<span class="keyword">having</span> search_condition] [<span class="keyword">order</span> <span class="keyword">by</span> order_expression [<span class="keyword">asc</span> | <span class="keyword">desc</span>]] [<span class="keyword">limit</span> <span class="keyword">count</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="MongoDB安装与实操"><a href="#MongoDB安装与实操" class="headerlink" title="MongoDB安装与实操"></a>MongoDB安装与实操</h2><ul>
+<li>MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。</li>
+<li>MongoDB 将数据存储为一个文档，MongoDB 文档类似于 JSON 对象。数据结构由键值(key=&gt;value)对组成。字 段值可以包含其他文档、数组及文档数组  </li>
+</ul>
+<p>主要特点</p>
+<ul>
+<li>MongoDB 是一个面向文档存储的数据库，操作起来比较 简单和容易。</li>
+<li>Mongo支持丰富的查询表达式。查询指令使用JSON形式 的标记，可轻易查询文档中内嵌的对象及数组。</li>
+<li>MongoDb 使用update()命令可以实现替换完成的文档（ 数据）或者一些指定的数据字段 。</li>
+<li>MongoDB支持各种编程语言:RUBY，PYTHON，JAVA，C ++，PHP，C#等多种语言。</li>
+<li>MongoDB安装简单</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">SQL术语/概念</th>
+<th style="text-align:center">MongoDB术语/概念</th>
+<th style="text-align:center">解释/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">database</td>
+<td style="text-align:center">database</td>
+<td style="text-align:center">数据库</td>
+</tr>
+<tr>
+<td style="text-align:center">table</td>
+<td style="text-align:center">collection</td>
+<td style="text-align:center">数据库表/集合</td>
+</tr>
+<tr>
+<td style="text-align:center">row</td>
+<td style="text-align:center">document</td>
+<td style="text-align:center">数据记录行/文档</td>
+</tr>
+<tr>
+<td style="text-align:center">column</td>
+<td style="text-align:center">field</td>
+<td style="text-align:center">数据字段/域</td>
+</tr>
+<tr>
+<td style="text-align:center">index</td>
+<td style="text-align:center">index 索引</td>
+</tr>
+<tr>
+<td style="text-align:center">table joins</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">表连接,MongoDB 不支持</td>
+</tr>
+<tr>
+<td style="text-align:center">primary key</td>
+<td style="text-align:center">primary key</td>
+<td style="text-align:center">主键,MongoDB自动将_id字段设置为主键</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/关系模型/" rel="tag"># 关系模型</a>
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/MongoDB/" rel="tag"># MongoDB</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/26/Python基础知识总结-2/" rel="next" title="Python基础知识总结(2)">
+                <i class="fa fa-chevron-left"></i> Python基础知识总结(2)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="zbnh" />
+          <p class="site-author-name" itemprop="name">zbnh</p>
+           
+              <p class="site-description motion-element" itemprop="description">技术真有趣</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zbnh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库基础知识"><span class="nav-number">1.</span> <span class="nav-text">数据库基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库概述"><span class="nav-number">1.1.</span> <span class="nav-text">数据库概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关系型数据库"><span class="nav-number">1.2.</span> <span class="nav-text">关系型数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-R模型"><span class="nav-number">1.3.</span> <span class="nav-text">E-R模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关系模型"><span class="nav-number">1.4.</span> <span class="nav-text">关系模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关系数据库语言SQL"><span class="nav-number">1.5.</span> <span class="nav-text">关系数据库语言SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非关系型数据库"><span class="nav-number">1.6.</span> <span class="nav-text">非关系型数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL安装与实操"><span class="nav-number">2.</span> <span class="nav-text">MySQL安装与实操</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL基础"><span class="nav-number">2.1.</span> <span class="nav-text">MySQL基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL数据库基本操作"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL数据库基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表记录操作"><span class="nav-number">2.3.</span> <span class="nav-text">表记录操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表查询"><span class="nav-number">2.4.</span> <span class="nav-text">表查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB安装与实操"><span class="nav-number">3.</span> <span class="nav-text">MongoDB安装与实操</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        <span class="powered-by" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zbnh</span>
+  
+</span>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
